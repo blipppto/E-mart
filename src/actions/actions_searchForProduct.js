@@ -1,18 +1,18 @@
 import axios from 'axios'
 
-export const FETCH_PRODUCT = 'fetch_product'
+export const SEARCH_FOR_PRODUCT = 'search_for_product'
 const baseUrl = process.env.REACT_APP_BACKEND_API
 
-const fetchProduct = id => {
-    const url = `${baseUrl}/${id}`
+const searchForProduct = name => {
+    const url = `${baseUrl}/search?name=${name}`
 
     return async(dispatch) => {
         const result = await axios.get(url)
             dispatch({
-                type: FETCH_PRODUCT,
+                type: SEARCH_FOR_PRODUCT,
                 payload: result.data.foundProduct
             })
     }
 }
 
-export default fetchProduct
+export default searchForProduct

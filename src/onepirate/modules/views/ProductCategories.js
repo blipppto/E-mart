@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
@@ -103,7 +104,7 @@ const images = [
 
 export default function ProductCategories() {
   return (
-    <Container component="section" sx={{ mt: 8, mb: 4 }}>
+    <Container component="section" sx={{ mt: 8, mb: 6 }}>
       <Typography variant="h4" marked="center" align="center" component="h2">
         Shop by category
       </Typography>
@@ -111,50 +112,53 @@ export default function ProductCategories() {
       <Box sx={{ mt: 8, display: 'flex', flexWrap: 'wrap' }}>
         {images.map((image) => (
           <ImageIconButton
-            href={`/category/?category=${encodeURIComponent(image.title)}`}
             key={image.title}
             style={{
               width: image.width,
             }}
           >
-            <Box
-              sx={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
-                backgroundSize: 'cover',
-                backgroundImage: `url(${image.url})`,
-              }}
-            />
-            <ImageBackdrop className="imageBackdrop" />
-            <Box
-              sx={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'common.white',
-              }}
-            >
-          
+            <Link to={`/category/?category=${encodeURIComponent(image.title)}`}>
+
+              <Box
+                sx={{
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  backgroundSize: 'cover',
+                  backgroundImage: `url(${image.url})`,
+                }}
+              />
+              <ImageBackdrop className="imageBackdrop" />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'common.white',
+                }}
+              >
+
                 <Typography
                   component="h3"
                   variant="h6"
                   color="inherit"
                   className="imageTitle"
                 >
-                  
+
                   {image.title}
-                  
+
                   <div className="imageMarked" />
                 </Typography>
-            </Box>
+              </Box>
+            </Link>
+
           </ImageIconButton>
         ))}
 

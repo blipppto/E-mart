@@ -20,7 +20,7 @@ function ProductValues() {
       component="section"
       sx={{ display: 'flex', overflow: 'hidden', bgcolor: 'secondary.light' }}
     >
-      <Container sx={{ mt: 15, mb: 30, display: 'flex', position: 'relative' }}>
+      <Container sx={{ mt: 10, mb: 10, display: 'flex', position: 'relative' , textAlign: 'center'}}>
        
         <Grid container spacing={5}>
           <Grid item xs={12} md={4}>

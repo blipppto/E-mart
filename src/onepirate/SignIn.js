@@ -1,19 +1,24 @@
 import * as React from 'react';
 import { Field, Form, FormSpy } from 'react-final-form';
 import Box from '@mui/material/Box';
+import {useNavigate} from 'react-router-dom'
+import { useDispatch } from 'react-redux';
 import Link from '@mui/material/Link';
 import Typography from './modules/components/Typography';
-import AppFooter from './modules/views/AppFooter';
 import AppAppBar from './modules/views/AppAppBar';
+import AppFooter from './modules/views/AppFooter';
 import AppForm from './modules/views/AppForm';
 import { email, required } from './modules/form/validation';
 import RFTextField from './modules/form/RFTextField';
+import login  from '../actions/action_login';
 import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
 import withRoot from './modules/withRoot';
 
 function SignIn() {
   const [sent, setSent] = React.useState(false);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const validate = (values) => {
     const errors = required(['email', 'password'], values);
@@ -28,8 +33,12 @@ function SignIn() {
     return errors;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (values) => {
     setSent(true);
+    dispatch(login(values, () =>  {
+      navigate('/')
+    }))
+    
   };
 
   return (
@@ -43,7 +52,7 @@ function SignIn() {
           <Typography variant="body2" align="center">
             {'Not a member yet? '}
             <Link
-              href="/premium-themes/onepirate/sign-up/"
+              href="/signUp"
               align="center"
               underline="always"
             >
@@ -57,7 +66,7 @@ function SignIn() {
           validate={validate}
         >
           {({ handleSubmit: handleSubmit2, submitting }) => (
-            <Box component="form" onSubmit={handleSubmit2} noValidate sx={{ mt: 6 }}>
+            <Box component="form" onSubmit={handleSubmit2} noValidate sx={{ mt: 8}}>
               <Field
                 autoComplete="email"
                 autoFocus
@@ -68,11 +77,11 @@ function SignIn() {
                 margin="normal"
                 name="email"
                 required
-                size="large"
+                size="small"
               />
               <Field
                 fullWidth
-                size="large"
+                size="small"
                 component={RFTextField}
                 disabled={submitting || sent}
                 required
@@ -94,7 +103,7 @@ function SignIn() {
               <FormButton
                 sx={{ mt: 3, mb: 2 }}
                 disabled={submitting || sent}
-                size="large"
+                size="small"
                 color="secondary"
                 fullWidth
               >
@@ -103,13 +112,7 @@ function SignIn() {
             </Box>
           )}
         </Form>
-        <Typography align="center">
-          <Link underline="always" href="/premium-themes/onepirate/forgot-password/">
-            Forgot password?
-          </Link>
-        </Typography>
       </AppForm>
-      <AppFooter />
     </React.Fragment>
   );
 }

@@ -11,15 +11,20 @@ function AppForm(props) {
     <Box
       sx={{
         display: 'flex',
-        backgroundImage: 'url(/static/onepirate/appCurvyLines.png)',
+        backgroundImage: 'url(/loginBackground.jpg)',
         backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition:'center',
+        backgroundAttachment: 'fixed',
+        mt: 8,
+        height: '100%'
       }}
     >
       <Container maxWidth="sm">
-        <Box sx={{ mt: 7, mb: 12 }}>
+        <Box sx={{ mt: 5, mb: 7 }}>
           <Paper
-            background="light"
-            sx={{ py: { xs: 4, md: 8 }, px: { xs: 3, md: 6 } }}
+            background="white"
+            sx={{ py: { xs: 4, md: 8 }, px: { xs: 3, md: 6 }, opacity: '0.7'}}
           >
             {children}
           </Paper>

@@ -21,7 +21,7 @@ function RFTextField(props) {
         inputProps: {
           autoComplete,
         },
-        ...InputProps,
+        ...InputProps
       }}
       helperText={touched ? error || submitError : ''}
       variant="standard"

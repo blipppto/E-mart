@@ -42,7 +42,7 @@ function SignUp() {
             Sign Up
           </Typography>
           <Typography variant="body2" align="center">
-            <Link href="/premium-themes/onepirate/sign-in/" underline="always">
+            <Link href="/signIn" underline="always">
               Already have an account?
             </Link>
           </Typography>
@@ -113,6 +113,7 @@ function SignUp() {
                 sx={{ mt: 3, mb: 2 }}
                 disabled={submitting || sent}
                 color="secondary"
+                size="small"
                 fullWidth
               >
                 {submitting || sent ? 'In progress…' : 'Sign Up'}
@@ -121,7 +122,6 @@ function SignUp() {
           )}
         </Form>
       </AppForm>
-      <AppFooter />
     </React.Fragment>
   );
 }
