@@ -22,6 +22,7 @@ function App() {
           <Route path='/signIn' element={<SignIn />}/>
           <Route path='/signUp' element={<SignUp/>}/>
           <Route path='/cart' element={<Cart/>}/>
+          
         </Routes>
       </BrowserRouter>
     </div>

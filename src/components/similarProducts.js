@@ -4,7 +4,10 @@ import CardActionArea from '@mui/material/CardActionArea'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import Box from '@mui/material/Box'
+import { Link } from 'react-router-dom'
 import Typography from '@mui/material/Typography'
+import { convertToValidPrice } from './getProductsUnderCategory';
+
 
 const SimilarProducts = (props) => {
 
@@ -14,28 +17,29 @@ const SimilarProducts = (props) => {
                 Customers also viewed these
             </Typography>
             
-                <Grid container spacing={1}>
+                <Grid container spacing={1} >
                     {
-                        props.similarProducts.map( (product) => {
-                            return <Grid item xs={6} md={3} key={product._id}>
+                        props.products.map( (product) => {
+                            return <Grid item xs={6} sm={3} md={2.4} key={product._id}>
                                 <Card
                                     sx={{ borderRadius: 2, padding: '5px' }}
                                 >
-                                    <CardActionArea
-                                        sx={{ height: '90%' }}
-                                        href={`/${product._id}`}>
+                                    <Link to={`/${product._id}`} >
+                                    <CardActionArea sx={{ height: '90%' }}>
                                         <CardMedia
                                             component='img'
                                             src={product.images[0]}
                                         />
-                                        <Typography >
+                                        <Typography sx={{ textDecoration: 'none', color: 'black', overflow: 'hidden', whiteSpace: 'nowrap',textOverflow: 'ellipsis' }}>
                                             {product.name}
                                         </Typography>
                                         <Typography
+                                        sx={{ textDecoration: 'none', color: 'black' }}
                                             variant='h5'>
-                                            {`N ${(product.price).toString()}`}
+                                            {convertToValidPrice(product.price)}
                                         </Typography>
                                     </CardActionArea>
+                                    </Link>
                                 </Card>
 
                             </Grid>

@@ -23,7 +23,7 @@ function AppForm(props) {
       <Container maxWidth="sm">
         <Box sx={{ mt: 5, mb: 7 }}>
           <Paper
-            background="white"
+            background="light"
             sx={{ py: { xs: 4, md: 8 }, px: { xs: 3, md: 6 }, opacity: '0.7'}}
           >
             {children}

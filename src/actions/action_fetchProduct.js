@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const FETCH_PRODUCT = 'fetch_product'
-const baseUrl = process.env.REACT_APP_BACKEND_API
+const baseUrl = process.env.REACT_APP_PRODUCT_API
 
 const fetchProduct = id => {
     const url = `${baseUrl}/${id}`

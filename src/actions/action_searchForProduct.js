@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const SEARCH_FOR_PRODUCT = 'search_for_product'
-const baseUrl = process.env.REACT_APP_BACKEND_API
+const baseUrl = process.env.REACT_APP_PRODUCT_API
 
 const searchForProduct = name => {
     const url = `${baseUrl}/search?name=${name}`

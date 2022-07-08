@@ -33,11 +33,11 @@ function ProductCTA() {
             }}
           >
             <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400 }}>
-              <Typography variant="h2" component="h2" gutterBottom>
+              <Typography variant="h3" component="h3" gutterBottom>
                 Receive offers
               </Typography>
               <Typography variant="h5">
-                Taste the holidays of the everyday close to home.
+                Feel the experience of shopping goods around the world.
               </Typography>
               <TextField
                 noBorder
@@ -70,12 +70,12 @@ function ProductCTA() {
               right: 0,
               bottom: 0,
               width: '100%',
-              background: 'url(/static/themes/onepirate/productCTAImageDots.png)',
+              background: 'url()',
             }}
           />
           <Box
             component="img"
-            src="https://images.unsplash.com/photo-1527853787696-f7be74f2e39a?auto=format&fit=crop&w=750&q=80"
+            src="https://images.unsplash.com/photo-1580793241553-e9f1cce181af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bWFsbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=750&q=80"
             alt="call to action"
             sx={{
               position: 'absolute',

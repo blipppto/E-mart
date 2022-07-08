@@ -12,8 +12,6 @@ const deleteCartItem = (id) => {
     const cart = JSON.parse(window.localStorage.getItem('cart'))
 
     if (!token) {
-        delete cart[id]
-        window.localStorage.setItem('cart', JSON.stringify(cart))
 
         return {
             type: DELETE_CART_ITEM,

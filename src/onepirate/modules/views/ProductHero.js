@@ -16,19 +16,15 @@ export default function ProductHero() {
       }}
     >
       {/* Increase the network loading priority of the background image. */}
-      <img
-        style={{ display: 'none' }}
-        src={backgroundImage}
-        alt="increase priority"
-      />
-      <Typography color="inherit" align="center" variant="h3" marked="center">
+    
+      <Typography color="inherit" align="center" variant="h3" marked="center" sx={{mt:{xs:5,md:5},fontFamily: 'varela round'}}>
         Your wants/needs in one  place
       </Typography>
       <Typography
         color="inherit"
         align="center"
         variant="h5"
-        sx={{ mb: 4, mt: { sx: 4, sm: 10 } }}
+        sx={{ mb: 4, mt: { xs: 4, sm: 10 } }}
       >
         Enjoy offers up to 50% off on featured products every Friday.
       </Typography>
@@ -36,10 +32,10 @@ export default function ProductHero() {
       <Button
         color="secondary"
         variant="contained"
-        size="large"
+        size="medium"
         sx={{ minWidth: 200, borderRadius: '4px' }}
       >
-        Register
+        Shop Now
       </Button>
       </Link>
      

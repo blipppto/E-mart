@@ -24,8 +24,12 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
   borderRadius: 0,
   height: '40vh',
   [theme.breakpoints.down('md')]: {
-    width: '100% !important',
-    height: 100,
+    width: '33.3% !important',
+    height: 200,
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: '50% !important',
+    height: 200,
   },
   '&:hover': {
     zIndex: 1,
@@ -114,7 +118,7 @@ export default function ProductCategories() {
           <ImageIconButton
             key={image.title}
             style={{
-              width: image.width,
+              width:image.width,
             }}
           >
             <Link to={`/category/?category=${encodeURIComponent(image.title)}`}>

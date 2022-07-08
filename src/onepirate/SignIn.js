@@ -14,6 +14,8 @@ import login  from '../actions/action_login';
 import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
 import withRoot from './modules/withRoot';
+import ResponsiveAppBar from '../components/navBar';
+
 
 function SignIn() {
   const [sent, setSent] = React.useState(false);
@@ -34,7 +36,7 @@ function SignIn() {
   };
 
   const handleSubmit = (values) => {
-    setSent(true);
+    setSent(true)
     dispatch(login(values, () =>  {
       navigate('/')
     }))
@@ -43,7 +45,7 @@ function SignIn() {
 
   return (
     <React.Fragment>
-      <AppAppBar />
+      <ResponsiveAppBar />
       <AppForm>
         <React.Fragment>
           <Typography variant="h3" gutterBottom marked="center" align="center">

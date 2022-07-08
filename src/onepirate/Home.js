@@ -8,11 +8,13 @@ import ProductHowItWorks from './modules/views/ProductHowItWorks';
 import ProductCTA from './modules/views/ProductCTA';
 import AppAppBar from './modules/views/AppAppBar';
 import withRoot from './modules/withRoot';
+import ResponsiveAppBar from '../components/navBar';
+
 
 function Index() {
   return (
     <React.Fragment>
-      <AppAppBar />
+      <ResponsiveAppBar />
       <ProductHero />
       <ProductValues />
       <ProductCategories />

@@ -14,13 +14,11 @@ const createCartItem = (product, selectedSize, image,qty) => {
     const valuesforLS =  {_id: _id, name, price, image, size: selectedSize, qty}
 
 
-    const data = JSON.parse(window.localStorage.getItem('cart'))
+    // const data = JSON.parse(window.localStorage.getItem('cart'))
     const token = JSON.parse(window.localStorage.getItem('token'))
 
     if (!token) {
-        const cart = { ...data, [_id]: valuesforLS }
-        window.localStorage.setItem('cart', JSON.stringify(cart))
-        
+       
         return {
             type: CREATE_CART_ITEM,
             payload: valuesforLS

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import searchForProduct from '../actions/actions_searchForProduct'
+import searchForProduct from '../actions/action_searchForProduct'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import Box from '@mui/material/Box'
@@ -12,6 +12,8 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button';
 import AppAppBar from '../onepirate/modules/views/AppAppBar';
 import ShoppingCartRounded from '@mui/icons-material/ShoppingCart'
+import { convertToValidPrice } from './getProductsUnderCategory';
+
 
 import _ from 'lodash'
 
@@ -56,7 +58,7 @@ const SearchedProduct = () => {
                                  </Typography>
                                  <Typography
                                     variant='h5'>
-                                    {`N ${(product.price).toString()}`}
+                                    {convertToValidPrice(product.price)}
                                  </Typography>
                               </CardActionArea>
                               <Button

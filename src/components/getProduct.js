@@ -14,6 +14,8 @@ import RecentlyViewed from './recentlyViewed'
 import SimilarProducts from './similarProducts'
 import createCartItem from '../actions/action_createCartItem'
 import updateCartItem from '../actions/action_updateCartItem'
+import { convertToValidPrice } from './getProductsUnderCategory'
+import ResponsiveAppBar from './navBar'
 
 
 
@@ -28,18 +30,10 @@ const item = {
 const Hr = styled.hr`
 width:100%;
 background-color:#f5f5f5;
-&:hover {
-   border: 2px solid red,
-   background: 'black'
-   }
+
 `
-const Span = styled.span`
-:hover {
-   cursor: pointer
- border: 2px solid red,
- background: 'black'
- }
-`
+const sizeStyles = { border: '1px solid lightgray', margin: '4px', padding: '4px', '&: hover':{background: 'gray'} }
+
 
 
 const GetProduct = () => {
@@ -48,7 +42,6 @@ const GetProduct = () => {
    const [displayedImageUrl, setDisplayedImageUrl] = useState('')
    const [selectedSize, setSelectedSize] = useState(null)
    const [qty, setQty] = useState(1)
-   const [clicked, setClicked] = useState(false)
    const [isPicAvailable, setIsPicAvailable] = useState(false)
 
 
@@ -57,19 +50,24 @@ const GetProduct = () => {
    }, [dispatch, id])
 
    
-   const product = useSelector(({ fetchedProducts }) => {
+   const product = useSelector(({ fetchedProducts}) => {
+      console.log(fetchedProducts)
       return fetchedProducts[id]
    })
-
+   const cartItem = useSelector(({ cart}) => {
+      return cart[id]
+   })
 
    const increaseQuantity = () => {
       setQty(qty + 1)
+      console.log(qty)
       const values = {name, _id, price, size:selectedSize,image: displayedImageUrl }
       dispatch(updateCartItem(values, qty + 1))
    }
 
    const decreaseQuantity = () => {
       setQty(qty - 1)
+      console.log(qty)
       const values = {name, _id, price, size:selectedSize,image: displayedImageUrl }
       dispatch(updateCartItem(values, qty - 1))
    }
@@ -87,13 +85,13 @@ const GetProduct = () => {
 
    if (!product) return <div>loading...</div>
 
-   const { name, price, _id } = product
+   const { name, price, _id, sizes, similarProducts } = product
 
    return (
       <>
-         <AppAppBar />
-         <Box sx={{ background: '#f5f5f5', marginTop: '72px',padding: '3px' }}>
-         <Link to='/'><span>Home</span></Link> {'>'} <Link to={`/${product._id}`}><span>{product.category}</span></Link> {'> '}  
+         <ResponsiveAppBar />
+         <Box sx={{ background: '#f5f5f5', marginTop: '72px',padding: '10px' }}>
+         <Link to='/'><span>Home</span></Link> {'>'} <Link to={`/category/?category=${encodeURIComponent(product.category)}`}><span>{product.category}</span></Link> {'> '}  
            <span>{product.name}</span>
 
             <Container sx={{ paddingTop: '20px' }}>
@@ -119,7 +117,7 @@ const GetProduct = () => {
                            <Hr />
                            <Typography
                               variant='h5'>
-                              {`N ${(product.price).toString()}`}
+                              {convertToValidPrice(product.price)}
                            </Typography>
                            <p
                               style={{ textDecoration: 'line-through', color: 'gray', marginTop: '0px' }}>
@@ -131,7 +129,7 @@ const GetProduct = () => {
                      
                            <Hr />
                            {
-                              (product.sizes.length > 1) && <Typography
+                              (sizes.length > 1) && <Typography
                                  variant='h6'
                                  sx={{ marginBottom: '7px' }}>
                                  {'SIZES AVAILABLE'}
@@ -140,42 +138,44 @@ const GetProduct = () => {
                            }
                            <Box>
                               {
-                                 product.sizes.map((size) => {
-                                    return <Span key={size}
+                                 sizes.map((size) => {
+                                    return <span key={size}
                                        onClick={(e) => setSelectedSize(e.target.textContent)}
-                                       style={{ border: '1px solid lightgray', margin: '4px', padding: '4px' }}>
+                                       style={sizeStyles}>
                                        {size}
-                                    </Span>
+                                    </span>
                                  })
                               }
                               
                            </Box>
 
-                           {clicked ?
-                              <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-                                 <Button variant="contained"
+                           {!cartItem ?
+                               <Button variant="contained"
+                               onClick={() => {
+                                  dispatch(createCartItem(product, selectedSize, displayedImageUrl, qty))
+                               }}
+                               sx={{ width: '100%', bgcolor: '#FF3366', mt: 3,'&: hover':{bgcolor: '#FF3366'}}}>
+                               Add to Cart
+                            </Button>
+                            :
+                                 <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+                                 { (cartItem.qty >1) && <Button variant="contained"
                                     onClick={decreaseQuantity}
-                                    sx={{ width: '30%', bgcolor: '#FF3366', mt: 3 }}>
+                                    sx={{ width: '30%', bgcolor: '#FF3366', mt: 3,'&: hover':{bgcolor: '#FF3366'} }}>
                                     -
                                  </Button>
-                                 <Button>
-                                    {qty}
+                                 }
+                                 <Button variant="contained"
+                                 sx={{ width: '30%', bgcolor: 'white', mt: 3,boxShadow: 'none', color: 'gray'}}>
+                                    {cartItem.qty + ' item(s)'}
                                  </Button>
                                  <Button variant="contained"
                                     onClick={increaseQuantity}
-                                    sx={{ width: '30%', bgcolor: '#FF3366', mt: 3 }}>
+                                    sx={{ width: '30%', bgcolor: '#FF3366', mt: 3,'&: hover':{bgcolor: '#FF3366'} }}>
                                     +
                                  </Button>
                               </div>
-                              :
-                              <Button variant="contained"
-                                 onClick={() => {
-                                    setClicked(true)
-                                    dispatch(createCartItem(product, selectedSize, displayedImageUrl, qty))
-                                 }}
-                                 sx={{ width: '100%', bgcolor: '#FF3366', mt: 3 }}>
-                                 Add to Cart
-                              </Button>
+                          
                            }
                         </Grid>
                      </Grid>
@@ -189,7 +189,7 @@ const GetProduct = () => {
                            {product.description}
                         </Typography>
                      </Box>
-                     <RecentlyViewed />
+                    
 
                   </Grid>
                   <Grid item xs={12} md={3} >
@@ -207,8 +207,12 @@ const GetProduct = () => {
                      </Box>
 
                   </Grid>
+                  
+                 
 
                </Grid>
+               <RecentlyViewed />
+                  <SimilarProducts products={similarProducts}/>
             </Container>
          </Box>
       </>

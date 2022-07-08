@@ -12,6 +12,7 @@ import Typography from '../components/Typography';
 import fetchFeaturedProducts from '../../../actions/action_fetchFeaturedProducts';
 import fetchProductsUnderCategory from '../../../actions/action_fetchProductsUnderCategory';
 import _ from 'lodash'
+import { convertToValidPrice } from '../../../components/getProductsUnderCategory';
 
 const item = {
   display: 'flex',
@@ -37,12 +38,11 @@ function ProductHowItWorks() {
 
   useEffect(() => {
     dispatch(fetchFeaturedProducts())
-  }, [])
+  }, [dispatch])
 
   const products = useSelector(({ products }) => {
     return products
   })
-   console.log(products)
 
   return (
     <Box
@@ -51,8 +51,8 @@ function ProductHowItWorks() {
     >
       <Container
         sx={{
-          mt: 7,
-          mb: 7,
+          mt: 5,
+          mb: 5,
           position: 'relative',
           display: 'flex',
           flexDirection: 'column',
@@ -70,16 +70,16 @@ function ProductHowItWorks() {
             opacity: 0.7,
           }}
         />
-        <Typography variant="h4" marked="center" component="h2" sx={{ mb: 10}}>
+        <Typography variant="h4" marked="center" component="h2" sx={{ mb: 5}}>
           Top Deals
         </Typography>
         <div>
           <Grid container spacing={1}>
             {
               _.map(products, (product) => {
-                return <Grid item xs={6} md={3} key={product._id}>
+                return <Grid item xs={6} md={2.4} key={product._id}>
                   <Card
-                    sx={{ borderRadius: 2,padding: '5px' }}
+                    sx={{ borderRadius: 2,padding: '5px'}}
                   >
                     <CardActionArea
                       sx={{objectFit: 'contain'}}
@@ -90,12 +90,12 @@ function ProductHowItWorks() {
                           src={product.images[0]}
                         />
                       </Link>
-                      <Typography >
+                      <Typography sx={{overflow: 'hidden', whiteSpace: 'nowrap',textOverflow: 'ellipsis'}} >
                         {product.name}
                       </Typography>
                       <Typography
                         variant='h5'>
-                        {`N ${(product.price).toString()}`}
+                        {convertToValidPrice(product.price)}
                       </Typography>
                     </CardActionArea>
 
