@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import { Link, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch} from 'react-redux'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Badge from '@mui/material/Badge'
 import { styled, alpha } from '@mui/material/styles';
@@ -17,8 +17,8 @@ import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuItem from '@mui/material/MenuItem';
 import { StyledEngineProvider } from '@mui/material';
+import Logout from '../actions/action_logout';
 
-const pages = ['Login', 'Sign Up'];
 
 export function findNoOfItems(obj) {
   let number = 0
@@ -31,8 +31,8 @@ export function findNoOfItems(obj) {
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   // const [searchTerm, setSearchTerm] = useState('')
-  const searchBar = useRef()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -73,15 +73,6 @@ const ResponsiveAppBar = () => {
     },
   }));
 
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
 
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
@@ -159,41 +150,47 @@ const ResponsiveAppBar = () => {
               >
                 {
                   (!user.isLoggedIn) ?
-                     pages.map((page) => (
-                      <MenuItem key={page} >
-                        
-                        <Typography textAlign="center">{page}</Typography>
-                      </MenuItem>
-                    ))
+                  [
+                  <MenuItem key='login'>
+                    <Link to='/signIn'>
+                    <Typography textAlign="center" sx={{color:'black'}}>Login</Typography>
+                  </Link>
+                  </MenuItem>,
+                  <MenuItem key='signUp'>
+                    <Link to='/signUp'>
+                    <Typography textAlign="center" sx={{color:'black'}}>Sign Up</Typography>
+                    </Link>
+                  </MenuItem>
+                  ]
                     :
-                    <>
-                      <MenuItem >
+                      [
+                      <MenuItem key={user.firstName}>
                         <Typography textAlign="center" sx={{color:'black'}}>{user.firstName}</Typography>
-                      </MenuItem>
-                      <MenuItem >
-                        <Link to='/logout'>
+                      </MenuItem>,
+                      <MenuItem key='logout'>
+                        <Button onClick={() => {dispatch(Logout())}}>
                         <Typography textAlign="center" sx={{color:'black'}}>Logout</Typography>
-                        </Link>
+                        </Button>
                       </MenuItem>
-                    </>
+                      ]
                 }
               </Menu>
             </Box>
+            <Box sx={{display: { xs: 'flex', md: 'none' },flexGrow: 1,flexWrap: 'nowrap'}}>
+              <Link to='/'>
             <Typography
               variant="h5"
-              noWrap
-
               sx={{
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
                 fontFamily: 'varela round',
                 fontWeight: 700,
-                color: 'inherit',
+                color: 'white',
                 textDecoration: 'none',
               }}
             >
               eMART.
             </Typography>
+            </Link>
+            </Box>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {
                 (!user.isLoggedIn) ?
@@ -216,17 +213,16 @@ const ResponsiveAppBar = () => {
                   :
                   <>
                     <Button
-                      sx={{ my: 2, color: 'white', display: 'block', textTransform: 'none' }}
+                      sx={{ my: 2, color: 'white', display: 'block', textTransform: 'none', fontSize: '16px'  }}
                     >
                       {user.firstName}
                     </Button>
-                    <Link to='/logout'>
                     <Button
+                      onClick={() => {dispatch(Logout())}}
                       sx={{ my: 2, color: 'white', display: 'block', textTransform: 'none', fontSize: '16px'  }}
                     >
                       Logout
                     </Button>
-                    </Link>
                   </>
               }
             </Box>
@@ -243,15 +239,11 @@ const ResponsiveAppBar = () => {
               </IconButton>
               <Search>
                 <StyledInputBase
-                  ref={searchBar}
-                  // value={searchTerm}
-                  // onChange={inputChange} 
                   placeholder="Search..."
                   inputProps={{ 'aria-label': 'search' }}
                 />
 
               </Search>
-
             </Box>
           </Toolbar>
         </Container>

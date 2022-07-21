@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import searchForProduct from '../actions/action_searchForProduct'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -9,10 +9,9 @@ import CardActionArea from '@mui/material/CardActionArea'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button';
-import AppAppBar from '../onepirate/modules/views/AppAppBar';
-import ShoppingCartRounded from '@mui/icons-material/ShoppingCart'
+import ResponsiveAppBar from './navBar'
 import { convertToValidPrice } from './getProductsUnderCategory';
+import Footer from './footer'
 
 
 import _ from 'lodash'
@@ -37,8 +36,8 @@ const SearchedProduct = () => {
 
    return (
       <>
-         <AppAppBar />
-         <Box sx={{ background: '#f5f5f5', marginTop: '75px' }} >
+         <ResponsiveAppBar />
+         <Box sx={{ background: '#f5f5f5', marginTop: '75px', padding: '10px'  }} >
 
             <Container>
                <Grid container spacing={1}>
@@ -46,14 +45,14 @@ const SearchedProduct = () => {
                      _.map(products, (product) => {
                         return <Grid item xs={6} md={3} key={product._id}>
                            <Card
-                              sx={{ borderRadius: 2, height: '65vh', padding: '5px' }}
+                              sx={{ borderRadius: 2, padding: '5px' }}
                            >
                               <CardActionArea href={`/${product._id}`}>
                                  <CardMedia
                                     component='img'
                                     src={product.images[0]}
                                  />
-                                 <Typography >
+                                 <Typography sx={{overflow: 'hidden', whiteSpace: 'nowrap',textOverflow: 'ellipsis'}}>
                                     {product.name}
                                  </Typography>
                                  <Typography
@@ -61,10 +60,7 @@ const SearchedProduct = () => {
                                     {convertToValidPrice(product.price)}
                                  </Typography>
                               </CardActionArea>
-                              <Button
-                                 variant="contained" startIcon={<ShoppingCartRounded />} sx={{ my: 3, width: '100%' }}>
-                                 Add to Cart
-                              </Button>
+                          
                            </Card>
 
                         </Grid>
@@ -73,6 +69,7 @@ const SearchedProduct = () => {
                </Grid>
             </Container>
          </Box>
+         <Footer />
       </>
    )
 }

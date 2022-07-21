@@ -37,7 +37,7 @@ function ProductCTA() {
                 Receive offers
               </Typography>
               <Typography variant="h5">
-                Feel the experience of shopping goods around the world.
+                Feel the experience of shopping goods from around the world.
               </Typography>
               <TextField
                 noBorder
@@ -49,7 +49,7 @@ function ProductCTA() {
                 type="submit"
                 color="primary"
                 variant="contained"
-                sx={{ width: '100%' }}
+                sx={{ width: '100%', bgcolor: '#040a24'}}
               >
                 Keep me updated
               </Button>

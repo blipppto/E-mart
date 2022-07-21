@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 import Toolbar from '../components/Toolbar';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Badge from '@mui/material/Badge';
-import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';

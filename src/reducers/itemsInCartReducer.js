@@ -7,13 +7,13 @@ import _ from 'lodash'
 
 export default function itemsInCartReducer(state = {}, action){
     switch(action.type){
-        case CREATE_CART_ITEM  : return {...state, [ action.payload._id]: action.payload}
-        case CREATE_CART_ITEM_USER  : return {...state, [ action.payload._id]: action.payload}
-        case UPDATE_CART_ITEM  : return {...state, [ action.payload._id]: action.payload}
-        case UPDATE_CART_ITEM_USER  : return {...state, [ action.payload._id]: action.payload}
+        case CREATE_CART_ITEM  : return {...state, [ action.payload.id]: action.payload}
+        case CREATE_CART_ITEM_USER  : return {...state, [ action.payload.id]: action.payload}
+        case UPDATE_CART_ITEM  : return {...state, [ action.payload.id]: action.payload}
+        case UPDATE_CART_ITEM_USER  : return {...state, [ action.payload.id]: action.payload}
         case DELETE_CART_ITEM : return _.omit(state, action.payload)
         case DELETE_CART_ITEM_USER : return _.omit(state, action.payload)
-        case CLEAR_CART : return _.omit(state)
+        case CLEAR_CART : return Object.keys(state).map((key) => delete state[key])
         default: return state
     }
 } 

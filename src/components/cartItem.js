@@ -38,7 +38,7 @@ class CartItem extends Component {
     }
 
     render() {
-        const { _id, name, image, size, price } = this.props.cartDetail
+        const { _id, id, name, image, size, price } = this.props.cartDetail
         return (
             <StyledEngineProvider injectFirst>
                 <Grid container spacing={1} key={name} sx={styles} >
@@ -53,17 +53,17 @@ class CartItem extends Component {
                             display: 'flex', flexDirection: 'column',
                             justifyContent: 'space-between'
                         }} >
-                            <Typography variant="h6" marked="center"  >
-                                {name}
-                                {
-                                size && <Typography variant="h6" marked="center" >
-                                    {`SIZE: ${size}`}
+                            <div>
+                                <Typography variant="h6" marked="center"  >
+                                    {name}
                                 </Typography>
-                                }
-                            </Typography>
+                                {size && <Typography variant="h6" marked="center" sx={{mt:0.5,fontSize: '16px'}}>
+                                    {`SIZE: ${size}`}
+                                </Typography>}
+                            </div>
                             <Button
                                 variant="filled" startIcon={<DeleteOutlinedIcon />}
-                                onClick={() => this.props.deleteItem(_id)}
+                                onClick={() => this.props.deleteItem(_id, id)}
                                 sx={{ color: '#FF3366', padding: '2px 2px', justifyContent: 'start' }}>
                                 Remove
                             </Button>

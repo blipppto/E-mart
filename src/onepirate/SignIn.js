@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { Field, Form, FormSpy } from 'react-final-form';
 import Box from '@mui/material/Box';
-import {useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import Link from '@mui/material/Link';
 import Typography from './modules/components/Typography';
-import AppAppBar from './modules/views/AppAppBar';
-import AppFooter from './modules/views/AppFooter';
 import AppForm from './modules/views/AppForm';
 import { email, required } from './modules/form/validation';
 import RFTextField from './modules/form/RFTextField';
-import login  from '../actions/action_login';
+import {useLoginUser}  from '../actions/action_login';
 import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
 import withRoot from './modules/withRoot';
@@ -18,9 +15,10 @@ import ResponsiveAppBar from '../components/navBar';
 
 
 function SignIn() {
-  const [sent, setSent] = React.useState(false);
+  const [sent] = React.useState(false);
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const loginUser = useLoginUser()
+
 
   const validate = (values) => {
     const errors = required(['email', 'password'], values);
@@ -36,10 +34,7 @@ function SignIn() {
   };
 
   const handleSubmit = (values) => {
-    setSent(true)
-    dispatch(login(values, () =>  {
-      navigate('/')
-    }))
+    dispatch(loginUser(values))
     
   };
 
@@ -53,10 +48,8 @@ function SignIn() {
           </Typography>
           <Typography variant="body2" align="center">
             {'Not a member yet? '}
-            <Link
-              href="/signUp"
-              align="center"
-              underline="always"
+            <Link to="/signup"
+              sx={{color: 'black'}}
             >
               Sign Up here
             </Link>

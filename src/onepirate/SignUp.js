@@ -1,11 +1,9 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+import {Link} from 'react-router-dom';
 import { Field, Form, FormSpy } from 'react-final-form';
 import Typography from './modules/components/Typography';
-import AppFooter from './modules/views/AppFooter';
-import AppAppBar from './modules/views/AppAppBar';
 import AppForm from './modules/views/AppForm';
 import { email, required } from './modules/form/validation';
 import RFTextField from './modules/form/RFTextField';
@@ -13,10 +11,18 @@ import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
 import withRoot from './modules/withRoot';
 import ResponsiveAppBar from '../components/navBar';
+import {useRegisterUser}  from '../actions/action_signup';
+import {useDispatch} from 'react-redux'
+
+
 
 
 function SignUp() {
-  const [sent, setSent] = React.useState(false);
+  const [sent] = React.useState(false);
+  const registerUser = useRegisterUser()
+  const dispatch = useDispatch()
+
+ 
 
   const validate = (values) => {
     const errors = required(['firstName', 'lastName', 'email', 'password'], values);
@@ -31,8 +37,8 @@ function SignUp() {
     return errors;
   };
 
-  const handleSubmit = () => {
-    setSent(true);
+  const handleSubmit = (values) => {
+    dispatch(registerUser(values))
   };
 
   return (
@@ -44,7 +50,9 @@ function SignUp() {
             Sign Up
           </Typography>
           <Typography variant="body2" align="center">
-            <Link href="/signIn" underline="always">
+          <Link to="/signin"
+              sx={{color: 'black'}}
+            >
               Already have an account?
             </Link>
           </Typography>

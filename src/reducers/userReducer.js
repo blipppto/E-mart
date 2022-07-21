@@ -1,4 +1,6 @@
 import { LOGIN } from "../actions/action_login";
+import { LOGOUT } from "../actions/action_logout";
+
 
 const initialState = {
     firstName: null,
@@ -14,6 +16,7 @@ export default function userReducer(state = initialState,action){
             email: action.payload.email,
             isLoggedIn: true
         }
+        case LOGOUT: return initialState
         default:return state 
     }
 }

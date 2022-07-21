@@ -3,16 +3,15 @@ import { useNavigate } from 'react-router-dom'
 import {useAlert} from 'react-alert'
 
 
+export const REGISTER = 'register'
 
-export const LOGIN = 'login'
+const url = `${process.env.REACT_APP_BACKEND_API}/signup`
 
-const url = `${process.env.REACT_APP_BACKEND_API}/login`
-
-export function useLoginUser() {
+export function useRegisterUser() {
     const navigate = useNavigate()
     const alert = useAlert()
 
-    const loginUser = (values) => {
+    const registerUser = (values) => {
         return async (dispatch) => {
             try {
                 const res = await axios.post(url, values, {
@@ -23,14 +22,13 @@ export function useLoginUser() {
                 window.localStorage.setItem('token', `${res.data.token}`)
 
                 dispatch({
-                    type: LOGIN,
+                    type: REGISTER,
                     payload: res.data.user
                 })
                 navigate('/')
-            } catch (err) {               
+            } catch (err) {
                 navigate('/signIn')
                 alert.error(err.response.data.message)
-               
                 
             }
         }
@@ -39,6 +37,6 @@ export function useLoginUser() {
     
     //what hook returns
     return (
-        loginUser
+        registerUser
     )
 }

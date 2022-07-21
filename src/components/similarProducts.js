@@ -10,15 +10,17 @@ import { convertToValidPrice } from './getProductsUnderCategory';
 
 
 const SimilarProducts = (props) => {
-
+  if(!props.products) return
+  console.log(props.products)
     return (
         <Box>
             <Typography variant="h6" sx={{ mt: 3,mb:0.5, padding: '8px', bgcolor: 'white', paddingLeft: '15px'}}>
                 Customers also viewed these
             </Typography>
             
-                <Grid container spacing={1} >
+                <Grid container spacing={1}  sx={{flexWrap: {xs:'nowrap',md: 'wrap'}, overflowX: {xs:'scroll',md: 'unset'}}} >
                     {
+                       
                         props.products.map( (product) => {
                             return <Grid item xs={6} sm={3} md={2.4} key={product._id}>
                                 <Card

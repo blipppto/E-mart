@@ -2,6 +2,20 @@ a{
   text-decoration: none;
   
 }
+img.picture{
+ height: 70%;
+ width: 100%;
+}
+
+.size:hover{
+  background-color: lightgray;
+  color:white;
+}
+
+img.backup{
+  height: 29%;
+  width: 33%;
+}
 
 .MuiTypography-h6{
  line-height: 1.1;
@@ -12,6 +26,11 @@ a{
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+.paymentButton{
+  width: '100%';
+   background-color: '#FF3366';
+   color: 'white'
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -35,13 +54,17 @@ a{
   color: #61dafb;
 }
 
-@media screen and(max-width: 780px){
-  .MuiButton-filled{
-    position: static
+@media screen and (max-width: 780px){
+ 
+  img.backup{
+    height:100%;
+    width: 100%;
   }
-  .MuiTypography-h6{
-    line-height: 1.6;
-   }
+  img.picture{
+    height: 100%
+   
+  }
+ 
 }
 
 @keyframes App-logo-spin {
