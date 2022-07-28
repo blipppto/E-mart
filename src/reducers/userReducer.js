@@ -1,5 +1,6 @@
 import { LOGIN } from "../actions/action_login";
 import { LOGOUT } from "../actions/action_logout";
+import { REGISTER} from '../actions/action_signup'
 
 
 const initialState = {
@@ -17,6 +18,12 @@ export default function userReducer(state = initialState,action){
             isLoggedIn: true
         }
         case LOGOUT: return initialState
+        case REGISTER: return {
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
+            email: action.payload.email,
+            isLoggedIn: true
+        }
         default:return state 
     }
 }

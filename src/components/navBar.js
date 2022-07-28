@@ -30,7 +30,6 @@ export function findNoOfItems(obj) {
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  // const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -45,6 +44,7 @@ const ResponsiveAppBar = () => {
 
   const makeRequestToSearchForProduct = () => {
     const searchTerm = document.querySelector('.MuiInputBase-input').value
+    if (!searchTerm) return
     navigate(`/search/?name=${searchTerm}`)
 
   }
@@ -56,6 +56,7 @@ const ResponsiveAppBar = () => {
   const user = useSelector(({ user }) => {
     return user
   })
+  
   const noOfCartItem = findNoOfItems(cart)
 
   const Search = styled('div')(({ theme }) => ({
@@ -149,7 +150,7 @@ const ResponsiveAppBar = () => {
                 }}
               >
                 {
-                  (!user.isLoggedIn) ?
+                  (!user.firstName) ?
                   [
                   <MenuItem key='login'>
                     <Link to='/signIn'>
@@ -193,7 +194,7 @@ const ResponsiveAppBar = () => {
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {
-                (!user.isLoggedIn) ?
+                (!user.firstName) ?
                   <>
                     <Link to='/signIn'>
                       <Button

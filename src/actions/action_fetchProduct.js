@@ -1,10 +1,10 @@
 import axios from 'axios'
+import {productApi} from '../config'
 
 export const FETCH_PRODUCT = 'fetch_product'
-const baseUrl = process.env.REACT_APP_PRODUCT_API
 
 const fetchProduct = id => {
-    const url = `${baseUrl}/${id}`
+    const url = `${productApi}/${id}`
 
     return async(dispatch) => {
         const result = await axios.get(url)

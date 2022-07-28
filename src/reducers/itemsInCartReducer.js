@@ -13,7 +13,8 @@ export default function itemsInCartReducer(state = {}, action){
         case UPDATE_CART_ITEM_USER  : return {...state, [ action.payload.id]: action.payload}
         case DELETE_CART_ITEM : return _.omit(state, action.payload)
         case DELETE_CART_ITEM_USER : return _.omit(state, action.payload)
-        case CLEAR_CART : return Object.keys(state).map((key) => delete state[key])
+        case CLEAR_CART :  return {}
         default: return state
     }
 } 
+

@@ -6,6 +6,8 @@ import Container from '@mui/material/Container';
 import Typography from '../components/Typography';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MoneyOffIcon from '@mui/icons-material/MoneyOff';
+import ScrollAnimation from "react-animate-on-scroll";
+
 
 const item = {
   display: 'flex',
@@ -23,11 +25,12 @@ function ProductValues() {
       <Container sx={{ mt: 10, mb: 10, display: 'flex', position: 'relative' , textAlign: 'center'}}>
        
         <Grid container spacing={5}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
+            <ScrollAnimation animateIn="animate__slideInLeft" animateOnce={true}>
             <Box sx={item}>
-              <LocalShippingIcon />
+              <LocalShippingIcon style={{fontSize: '40px'}} />
             
-              <Typography variant="h6" sx={{ my: 5 }}>
+              <Typography variant="h6" sx={{ my: 5 }} >
                 Fast Delivery of Orders
               </Typography>
               <Typography variant="h5">
@@ -36,28 +39,16 @@ function ProductValues() {
                 }
 
                 {
-                  ' and you get your orders delivered in due time.'
+                  'and you get your orders delivered in due time.'
                 }
               </Typography>
             </Box>
+            </ScrollAnimation>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
+            <ScrollAnimation animateIn="animate__slideInRight" animateOnce='true'>
             <Box sx={item}>
-              <Typography variant="h6" sx={{ my: 5 }}>
-                New experiences
-              </Typography>
-              <Typography variant="h5">
-                {
-                  'Privatize a pool, take a Japanese bath or wake up in 900m2 of garden… '
-                }
-
-                {'your Sundays will not be alike.'}
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Box sx={item}>
-              <MoneyOffIcon />
+              <MoneyOffIcon  style={{fontSize: '40px'}} />
               <Typography variant="h6" sx={{ my: 5 }}>
                 Discount Offers
               </Typography>
@@ -65,6 +56,7 @@ function ProductValues() {
                 {'By registering, you will get access to periodic discount rates. '}
               </Typography>
             </Box>
+            </ScrollAnimation>
           </Grid>
         </Grid>
       </Container>

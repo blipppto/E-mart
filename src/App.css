@@ -67,6 +67,18 @@ img.backup{
  
 }
 
+@media screen and (max-width: 900px) and (min-width: 780px) {
+  img.backup{
+    height:100%;
+    width: 100%;
+  }
+  img.picture{
+    height: 100%
+   
+  }
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

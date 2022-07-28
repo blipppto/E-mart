@@ -1,10 +1,10 @@
 import axios from 'axios'
+import {productApi} from '../config'
 
 export const FETCH_PRODUCTS_UNDER_CATEGORY = 'fetch_products_under_category'
-const baseUrl = process.env.REACT_APP_PRODUCT_API
 
 const fetchProductsUnderCategory = categoryValue => {
-    const url = `${baseUrl}/category?category=${categoryValue}`
+    const url = `${productApi}/category?category=${categoryValue}`
 
     return async(dispatch) => {
         

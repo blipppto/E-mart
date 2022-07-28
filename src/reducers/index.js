@@ -4,13 +4,22 @@ import itemsInCartReducer from './itemsInCartReducer'
 import productsUnderCategoryReducer from './productsUnderCategoryReducer'
 import fetchedProductReducer from './fetchedProductsReducer'
 import userReducer from './userReducer'
+import storage from 'redux-persist/lib/storage'
+import { persistReducer } from 'redux-persist'
+
+
+const userPersistConfig = {
+    key: 'user',
+    storage,
+    blacklist: ['isLoggedIn']
+  }
 
 const rootReducer = combineReducers({
     products: productsReducer,
     cart: itemsInCartReducer,
     productsUnderCategory: productsUnderCategoryReducer,
     fetchedProducts: fetchedProductReducer,
-    user: userReducer,
+    user: persistReducer(userPersistConfig, userReducer),
     
 })
 

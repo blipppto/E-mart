@@ -1,17 +1,15 @@
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import {useAlert} from 'react-alert'
-
+import {productApi} from '../config'
 export const CLEAR_CART = 'CLEAR_CART'
 
-const url = `${process.env.REACT_APP_PRODUCT_API}/payment/reference`
+const url = `${productApi}/payment/reference`
 
 
-export function useCheckout() {
+export function useCheckout(){
     const token = window.localStorage.getItem('token')
     const navigate = useNavigate()
-    const alert = useAlert()
 
     const checkoutCart = (reference) => {
              return async (dispatch) => {
@@ -33,9 +31,8 @@ export function useCheckout() {
                         'success')
 
                 } catch(err){
-                    console.log(err.response.data)
+                    console.log(err)
                     navigate('/signIn')
-                  alert.error(err.response.data.message)
                 }
          
         }

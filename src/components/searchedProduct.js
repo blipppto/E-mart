@@ -37,7 +37,7 @@ const SearchedProduct = () => {
    return (
       <>
          <ResponsiveAppBar />
-         <Box sx={{ background: '#f5f5f5', marginTop: '75px', padding: '10px'  }} >
+         <Box sx={{ background: '#f5f5f5', marginTop: {md:'76px',sm: '70px', xs:'14%'}, padding: '10px'  }} >
 
             <Container>
                <Grid container spacing={1}>

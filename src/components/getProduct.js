@@ -12,7 +12,7 @@ import Rating from '@mui/material/Rating';
 import RecentlyViewed from './recentlyViewed'
 import SimilarProducts from './similarProducts'
 import { useCreateCartItem } from '../actions/action_createCartItem'
-import {useUpdateCartItem} from '../actions/action_updateCartItem'
+import { useUpdateCartItem } from '../actions/action_updateCartItem'
 import { convertToValidPrice } from './getProductsUnderCategory'
 import ResponsiveAppBar from './navBar'
 import Footer from './footer'
@@ -23,6 +23,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import NaijaStates from 'naija-state-local-government'
 import { useAlert } from 'react-alert'
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
+
 
 const item = {
    display: 'flex',
@@ -34,8 +37,13 @@ const item = {
 const Hr = styled.hr`
 width:100%;
 background-color:#f5f5f5;
-
 `
+const P = styled.p`
+margin: 0px;
+font-size: 15px;
+margin-left: 32px;
+`
+
 const sizeStyles = { border: '1px solid lightgray', margin: '4px', padding: '4px' }
 
 const GetProduct = () => {
@@ -64,7 +72,7 @@ const GetProduct = () => {
    useEffect(() => {
       dispatch(fetchProduct(id))
 
-   }, [ dispatch, id])
+   }, [dispatch, id])
 
 
    const product = useSelector(({ fetchedProducts }) => {
@@ -87,7 +95,7 @@ const GetProduct = () => {
    useEffect(() => {
       if (!product) return
       setDisplayedImageUrl(product.images[0])
-      setSimilarProducts(product.similarProducts)    
+      setSimilarProducts(product.similarProducts)
    }, [product])
 
 
@@ -100,7 +108,7 @@ const GetProduct = () => {
    return (
       <StyledEngineProvider injectFirst>
          <ResponsiveAppBar />
-         <Box sx={{ background: '#f5f5f5', marginTop: '72px', padding: '10px' }}>
+         <Box sx={{ background: '#f5f5f5', marginTop: { md: '76px', sm: '70px', xs: '14%' }, padding: '10px' }}>
             <Link to='/'><span>Home</span></Link> {'>'} <Link to={`/category/?category=${encodeURIComponent(product.category)}`}><span>{product.category}</span></Link> {'> '}
             <span>{name}</span>
 
@@ -149,10 +157,11 @@ const GetProduct = () => {
                               {
                                  sizes.map((size) => {
                                     return <span key={size}
-                                    className='size'
+                                       className='size'
                                        onClick={(e) => {
                                           alert.show('size selected')
-                                          setSelectedSize(e.target.textContent)}}
+                                          setSelectedSize(e.target.textContent)
+                                       }}
                                        style={sizeStyles}>
                                        {size}
                                     </span>
@@ -178,7 +187,7 @@ const GetProduct = () => {
                                  </Button>
                                  }
                                  <Button variant="contained"
-                                    sx={{ width: '30%', bgcolor: 'white', mt: 3, boxShadow: 'none', color: 'gray' }}>
+                                    sx={{ width: '30%', bgcolor: 'white', mt: 3, boxShadow: 'none', color: 'gray','&: hover': { bgcolor: 'white', boxShadow: 'none' } }}>
                                     {cartItem.qty + ' item(s)'}
                                  </Button>
                                  <Button variant="contained"
@@ -240,16 +249,28 @@ const GetProduct = () => {
                                     return <MenuItem key={lga} value={lga}>{lga}</MenuItem>
                                  })
                               }
-
                            </Select>
                         </FormControl>
 
                      </Box>
-
+                     <Typography variant="h6" sx={{ mt: 0.5, mb: 0.5, padding: '8px', bgcolor: 'white', paddingLeft: '15px' }}>
+                        <LocalShippingIcon sx={{ verticalAlign: 'middle', mr: 1 }} />
+                        Door delivery
+                        <P>Ready for delivery in 2 weeks.</P>
+                     </Typography>
+                     <Typography variant="h6" sx={{ mt: 0.5, mb: 0.5, padding: '8px', bgcolor: 'white', paddingLeft: '15px' }}>
+                        <StoreMallDirectoryIcon sx={{ verticalAlign: 'middle', mr: 1 }} />
+                        Pickup station
+                        <P>Ready for delivery in 2 weeks.</P>
+                     </Typography>
+                     <Typography variant="h6" sx={{ mt: 0.5, mb: 0.5, padding: '8px', bgcolor: 'white', paddingLeft: '15px' }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16" style={{marginRight:'10px',marginLeft:'5px'}}>
+                           <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z" />
+                        </svg>
+                        Return policy
+                        <P>Free return within 7 days. </P>
+                     </Typography>
                   </Grid>
-
-
-
                </Grid>
                <RecentlyViewed />
                <SimilarProducts products={similarProducts} />

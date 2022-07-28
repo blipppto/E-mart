@@ -17,8 +17,7 @@ export function useUpdateCartItem(){
         const url = `${baseUrl}/cart/${_id}`
         const newCartItem = {...cartItem, qty} 
     
-        if (!token) {
-
+        if (!token && !_id) {
             return {
                 type: UPDATE_CART_ITEM,
                 payload: newCartItem

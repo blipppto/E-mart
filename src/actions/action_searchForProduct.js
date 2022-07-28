@@ -1,10 +1,11 @@
 import axios from 'axios'
+import {productApi} from '../config'
 
 export const SEARCH_FOR_PRODUCT = 'search_for_product'
-const baseUrl = process.env.REACT_APP_PRODUCT_API
+
 
 const searchForProduct = name => {
-    const url = `${baseUrl}/search?name=${name}`
+    const url = `${productApi}/search?name=${name}`
 
     return async(dispatch) => {
         const result = await axios.get(url)

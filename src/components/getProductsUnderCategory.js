@@ -32,9 +32,6 @@ export function convertToValidPrice(num) {
 }
 
 
-
-
-
 const StyledTextField = styled(TextField)({
    '& .MuiOutlinedInput-input': {
       padding: '10px 5px',
@@ -104,7 +101,7 @@ const GetProductsUnderCategory = () => {
    return (
       <>
          <ResponsiveAppBar />
-         <Box sx={{ background: '#f5f5f5', marginTop: '72px', padding: '10px' }} >
+         <Box sx={{ background: '#f5f5f5', marginTop: {md:'76px',sm: '70px', xs:'14%'}, padding: '10px' }} >
             <Link to='/'><span>Home</span></Link> {'> '} <span>{decodedCategory}</span>
             <Container sx={{ paddingTop: '20px' }}>
                <Grid container spacing={1.5} sx={{display: 'flex'}}>

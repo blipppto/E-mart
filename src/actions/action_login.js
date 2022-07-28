@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import {useAlert} from 'react-alert'
+import {backendApi} from '../config'
 
 
 
 export const LOGIN = 'login'
 
-const url = `${process.env.REACT_APP_BACKEND_API}/login`
+const url = `${backendApi}/login`
 
 export function useLoginUser() {
     const navigate = useNavigate()

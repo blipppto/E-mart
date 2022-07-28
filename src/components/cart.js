@@ -16,15 +16,9 @@ import Footer from './footer'
 import { PaystackConsumer } from 'react-paystack';
 import {useCheckout} from '../actions/action_cartCheckout'
 import Swal from 'sweetalert2'
+import { paystackKey} from '../config'
 
 import _ from 'lodash'
-
-
-
-const handleClose = () => {
-   Swal.fire('You closed the payment page')
-}
-
 
 
 const Cart = () => {
@@ -36,15 +30,17 @@ const Cart = () => {
     const deleteCartItem = useDeleteCartItem()
 
 
-   const handleSuccess = (reference) => {
-    console.log(reference)
-   dispatch(checkout(reference.reference))
-};
+   const handleSuccess = ({reference}) => {
+   dispatch(checkout(reference))
+   };
+
+   const handleClose = () => {
+    Swal.fire('You closed the payment page')
+   }
 
     const cart = useSelector(({ cart }) => {
         return cart
     })
-
     const user = useSelector(({ user }) => {
         return user
     })
@@ -53,7 +49,7 @@ const Cart = () => {
         reference: (new Date()).getTime().toString(),
         email: user.email,
         amount: subtotal * 100,
-        publicKey: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY,
+        publicKey: paystackKey,
     };
 
     const componentProps = {
@@ -67,7 +63,6 @@ const Cart = () => {
         let total = 0
         _.map(cart, cartItem => {
             total += (cartItem.price * cartItem.qty)
-
         })
         setSubtotal(total)
     }, [cart])
@@ -89,8 +84,8 @@ const Cart = () => {
     if (Object.keys(cart).length === 0) return (
         <div>
             <ResponsiveAppBar />
-            <Box sx={{ display: 'flex', marginTop: '10%', alignItems: 'center', }}>
-                <Container sx={{ paddingTop: '10px', width: '50%' }}>
+            <Box sx={{ display: 'flex', marginTop: {md:'10%',sm: '10%', xs:'20%'}, alignItems: 'center' }}>
+                <Container sx={{ paddingTop: '10px', width: '70%' }}>
                     <Typography variant="h6" sx={{ padding: '8px', bgcolor: 'white', background: '#f5f5f5' }}>
                         There is no item in the cart at the moment.
                     </Typography>
@@ -114,7 +109,6 @@ const Cart = () => {
                     <Typography sx={{ padding: '10px', }}>
                         {`Cart(${findNoOfItems(cart)})`}
                     </Typography>
-
                     <Grid container spacing={2} sx={{ dispaly: 'flex' }}>
                         <Grid item sm={12} md={9} >
 

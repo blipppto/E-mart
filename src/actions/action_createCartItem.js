@@ -2,12 +2,12 @@ import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 import Swal from 'sweetalert2'
 import {useAlert} from 'react-alert'
+import {productApi} from '../config'
 
 
 export const CREATE_CART_ITEM_USER = 'cart_item_user'
 export const CREATE_CART_ITEM = 'cart_item'
 
-const baseUrl = process.env.REACT_APP_PRODUCT_API
 
 export function useCreateCartItem(){
     const navigate = useNavigate()
@@ -15,7 +15,7 @@ export function useCreateCartItem(){
     const token = window.localStorage.getItem('token')
 
     const createCartItem = (product, selectedSize, image,qty) => {
-        const url = `${baseUrl}/cart/add`
+        const url = `${productApi}/cart/add`
         const { name, price, _id } = product
         const valuesforDB = {name, price, image, size: selectedSize, qty}
         const valuesforLS =  {id: _id, name, price, image, size: selectedSize, qty}
@@ -34,10 +34,9 @@ export function useCreateCartItem(){
 
             return async (dispatch) => {
                 try{
-                    const result = await axios.post(url, valuesforDB,
-                        {
-                            headers: { 'content-type': 'application/json', 'Authorization': `Bearer ${token}`}
-                        })
+                    const result = await axios.post(url, valuesforDB, {
+                            headers: { 'content-type': 'application/json', 'Authorization': `Bearer ${token}`}})
+
                      const recentCartItem =   { ...result.data.newCartItem, id:_id }
                     dispatch({
                         type: CREATE_CART_ITEM_USER,

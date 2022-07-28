@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import {useAlert} from 'react-alert'
+import {backendApi} from '../config'
 
 
 export const REGISTER = 'register'
 
-const url = `${process.env.REACT_APP_BACKEND_API}/signup`
+const url = `${backendApi}/signup`
 
 export function useRegisterUser() {
     const navigate = useNavigate()
@@ -27,12 +28,10 @@ export function useRegisterUser() {
                 })
                 navigate('/')
             } catch (err) {
-                navigate('/signIn')
-                alert.error(err.response.data.message)
-                
+                navigate('/signUp')
+                alert.error(err.response.data.message) 
             }
         }
-
     }
     
     //what hook returns
