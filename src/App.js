@@ -3,6 +3,8 @@ import './App.css';
 import Home from './onepirate/Home'
 import GetProductsUnderCategory from './components/getProductsUnderCategory';
 import GetProduct from './components/getProduct';
+import myModule from './dist/myModule.js';
+import { Form, Field } from 'react-final-form';
 import SearchedProduct from './components/searchedProduct';
 import SignIn from './onepirate/SignIn';
 import SignUp from './onepirate/SignUp';
